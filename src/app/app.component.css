@@ -1,0 +1,10 @@
+.layout {
+  display: flex;
+  margin-top: 10vh; /* Ajuste se o header for fixo e ocupar 8vh */
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+  margin-left: 250px; /* Garante que o conteúdo não fique por baixo do menu lateral */
+}

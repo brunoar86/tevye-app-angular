@@ -1,0 +1,33 @@
+<div class="transaction-container">
+  <h2>Registrar Transação</h2>
+  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="transactionType">Tipo de Transação:</label>
+      <select id="transactionType" formControlName="transactionType">
+        <option value="" disabled selected>Selecione</option>
+        <option value="gasto">Gasto</option>
+        <option value="compra">Compra</option>
+        <!-- Adicione outras opções se necessário -->
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="item">Com o que gastou/Comprou:</label>
+      <input id="item" type="text" formControlName="item" placeholder="Descrição do item" />
+    </div>
+
+    <div class="form-group">
+      <label for="paymentMethod">Como Pagou:</label>
+      <select id="paymentMethod" formControlName="paymentMethod">
+        <option value="" disabled selected>Selecione</option>
+        <option value="dinheiro">Dinheiro</option>
+        <option value="cartao">Cartão</option>
+        <option value="transferencia">Transferência</option>
+        <!-- Outras opções se necessário -->
+      </select>
+    </div>
+
+    <button type="submit">Registrar Transação</button>
+  </form>
+</div>
