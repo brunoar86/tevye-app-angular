@@ -1,5 +1,7 @@
 .transaction-container {
   padding: 1rem;
+  font-family: Lato, sans-serif;
+  color: #212121;
 }
 
 .form-group {
@@ -19,13 +21,58 @@ input, select {
 
 button {
   padding: 0.5rem 1rem;
-  background-color: var(--primary-color);
-  color: var(--background-color);
-  border: none;
+  background-color: #002776;
+  color: #FFFFFF;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: var(--accent-color);
+  background-color: #FFCC29;
+  color: #212121;
+}
+
+.last-transactions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.debt-transactions, .credit-transactions {
+  width: 47%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+h4 {
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+.form-group.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.column {
+  width: 47%;
+  display: flex;
+  flex-direction: column;
 }

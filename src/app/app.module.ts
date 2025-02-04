@@ -7,13 +7,21 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { AccountsComponent } from './accounts/accounts/accounts.component';
+import { AccountsCreateComponent } from './accounts/accounts-create/accounts-create.component';
+import { AccountsDeleteComponent } from './accounts/accounts-delete/accounts-delete.component';
+import { AccountsAlterComponent } from './accounts/accounts-alter/accounts-alter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     MenuComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    AccountsComponent,
+    AccountsCreateComponent,
+    AccountsDeleteComponent,
+    AccountsAlterComponent
   ],
   imports: [
     BrowserModule,

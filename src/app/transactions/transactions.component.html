@@ -3,31 +3,64 @@
   <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
 
     <div class="form-group">
-      <label for="transactionType">Tipo de Transação:</label>
-      <select id="transactionType" formControlName="transactionType">
+      <label for="debtAccount">Conta a Débito</label>
+      <select id="debtAccount" formControlName="debtAccount">
         <option value="" disabled selected>Selecione</option>
-        <option value="gasto">Gasto</option>
-        <option value="compra">Compra</option>
-        <!-- Adicione outras opções se necessário -->
+        <option value="despesa">Despesa</option>
+        <option value="divida">Pagamento de Dívida</option>
+        <option value="investimento">Investimento</option>
+        <option value="pagamento">Pagamento</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label for="item">Com o que gastou/Comprou:</label>
-      <input id="item" type="text" formControlName="item" placeholder="Descrição do item" />
+      <label for="creditAccount">Conta a Crédito</label>
+      <select id="creditAccount" formControlName="creditAccount">
+        <option value="" disabled selected>Selecione</option>
+        <option value="despesa">Despesa</option>
+        <option value="divida">Pagamento de Dívida</option>
+        <option value="investimento">Investimento</option>
+        <option value="pagamento">Pagamento</option>
+      </select>
+    </div>
+
+
+    <div class="form-group row">
+      <div class="column">
+        <label for="transactionDate">Data:</label>
+        <input id="transactionDate" type="date" formControlName="transactionDate" required/>
+      </div>
+      <div class="column">
+        <label for="value">Valor:</label>
+        <input id="value" type="text" formControlName="value" placeholder="0,00" required/>
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="paymentMethod">Como Pagou:</label>
-      <select id="paymentMethod" formControlName="paymentMethod">
-        <option value="" disabled selected>Selecione</option>
-        <option value="dinheiro">Dinheiro</option>
-        <option value="cartao">Cartão</option>
-        <option value="transferencia">Transferência</option>
-        <!-- Outras opções se necessário -->
-      </select>
+      <label for="description">Histórico:</label>
+      <input id="description" type="text" formControlName="description" placeholder="Descrição da transação" required/>
     </div>
 
     <button type="submit">Registrar Transação</button>
   </form>
+  <h3>Últimos Lançamentos</h3>
+  <div class="last-transactions">
+    <div class="debt-transactions" *ngIf="lastDebits.length > 0">
+      <h4>Conta a Débito</h4>
+      <ul>
+        <li *ngFor="let transaction of lastDebits">
+          {{ transaction.description }} - R$ {{ transaction.value }}
+        </li>
+      </ul>
+    </div>
+    <div class="credit-transactions" *ngIf="lastCredits.length > 0">
+      <h4>Conta a Crédito</h4>
+      <ul>
+        <li *ngFor="let transaction of lastCredits">
+          {{ transaction.description }} - R$ {{ transaction.value }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </div>
