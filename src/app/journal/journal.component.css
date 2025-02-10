@@ -1,0 +1,31 @@
+.journal-container {
+  text-align: center;
+  padding: 20px;
+  font-family: Lato, sans-serif;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+thead {
+  background-color: #002776;
+  color: white;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+p {
+  font-size: 16px;
+  color: red;
+}

@@ -1,0 +1,42 @@
+<div class="ledger-container">
+  <h2>Livro Razão</h2>
+
+  <form [formGroup]="ledgerForm">
+    <div class="form-group">
+      <label for="account">Conta:</label>
+      <select id="account" formControlName="account" (change)="onSelectAccount()">
+        <option value="" disabled selected>Selecione uma conta</option>
+        <option *ngFor="let account of accounts" [value]="account.code">
+          {{ account.code }} - {{ account.name }}
+        </option>
+      </select>
+    </div>
+  </form>
+
+  <h3 *ngIf="selectedAccount">Registros da Conta: {{ selectedAccount.name }}</h3>
+
+  <table *ngIf="ledgerEntries.length > 0">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Contrapartida</th>
+        <th>Histórico</th>
+        <th>Débito</th>
+        <th>Crédito</th>
+        <th>Saldo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of ledgerEntries">
+        <td>{{ entry.date }}</td>
+        <td>{{ entry.counterpart }}</td>
+        <td>{{ entry.history }}</td>
+        <td>{{ entry.debit | currency:'BRL' }}</td>
+        <td>{{ entry.credit | currency:'BRL' }}</td>
+        <td>{{ entry.balance | currency:'BRL' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="ledgerEntries.length === 0 && selectedAccount">Nenhum registro encontrado para esta conta.</p>
+</div>

@@ -1,0 +1,32 @@
+.accounts-container {
+  text-align: center;
+  padding: 10rem, 16rem;
+  font-family: Lato, sans-serif;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.6rem;
+  margin-top: 4rem;
+  margin-left: 40rem;
+  margin-right: 40rem;
+}
+
+button {
+  padding: 0.8rem 4rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #002776;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #FFCC29;
+  color: #212121;
+}

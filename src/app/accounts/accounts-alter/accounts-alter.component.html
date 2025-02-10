@@ -1,1 +1,34 @@
-<p>accounts-alter works!</p>
+<div class="account-alter-container">
+  <h2>Alterar Conta</h2>
+
+  <!-- 🔹 Mensagem dinâmica para feedback APENAS na alteração -->
+  <p *ngIf="message" class="message" [ngClass]="messageType">{{ message }}</p>
+
+  <form [formGroup]="alterForm" (ngSubmit)="updateAccount()">
+    <div class="form-group">
+      <label for="account">Conta:</label>
+      <select id="account" formControlName="account" (change)="onSelectAccount()">
+        <option value="" disabled selected>Selecione uma conta</option>
+        <option *ngFor="let account of accounts" [value]="account.id">
+          {{ account.id }} - {{ account.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group" *ngIf="selectedAccount">
+      <label for="name">Novo Nome:</label>
+      <input id="name" type="text" formControlName="name" placeholder="Digite o novo nome" required/>
+    </div>
+
+    <button type="submit" [disabled]="alterForm.invalid">Salvar Alteração</button>
+  </form>
+
+  <h3 *ngIf="accounts.length > 0">Contas Analíticas - Plano de Contas</h3>
+  <ul *ngIf="accounts.length > 0">
+    <li *ngFor="let account of accounts">
+      {{ account.id }} - {{ account.name }}
+    </li>
+  </ul>
+
+  <p *ngIf="accounts.length === 0">Nenhuma conta disponível.</p>
+</div>

@@ -23,7 +23,7 @@ button {
   padding: 0.5rem 1rem;
   background-color: #002776;
   color: #FFFFFF;
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -43,7 +43,7 @@ button:hover {
   width: 47%;
   padding: 15px;
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: #f9f9f9;
 }
 

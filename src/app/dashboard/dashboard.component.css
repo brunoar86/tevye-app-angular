@@ -1,0 +1,39 @@
+.dashboard-container {
+  text-align: center;
+  padding: 20px;
+  font-family: Lato, sans-serif;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+h3 {
+  border-bottom: 2px solid #002776;
+  padding-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+td:first-child {
+  font-weight: bold;
+}
+
+.highlight {
+  font-weight: bold;
+  background-color: #f8f9fa;
+}

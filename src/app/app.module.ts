@@ -11,6 +11,10 @@ import { AccountsComponent } from './accounts/accounts/accounts.component';
 import { AccountsCreateComponent } from './accounts/accounts-create/accounts-create.component';
 import { AccountsDeleteComponent } from './accounts/accounts-delete/accounts-delete.component';
 import { AccountsAlterComponent } from './accounts/accounts-alter/accounts-alter.component';
+import { LedgerComponent } from './ledger/ledger.component';
+import { JournalComponent } from './journal/journal.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,12 +25,16 @@ import { AccountsAlterComponent } from './accounts/accounts-alter/accounts-alter
     AccountsComponent,
     AccountsCreateComponent,
     AccountsDeleteComponent,
-    AccountsAlterComponent
+    AccountsAlterComponent,
+    LedgerComponent,
+    JournalComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

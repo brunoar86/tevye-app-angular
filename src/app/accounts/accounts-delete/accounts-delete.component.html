@@ -1,1 +1,29 @@
-<p>accounts-delete works!</p>
+<div class="account-delete-container">
+  <h2>Excluir Conta</h2>
+
+  <!-- 🔹 Mensagem dinâmica para feedback APENAS na exclusão -->
+  <p *ngIf="message" class="message" [ngClass]="messageType">{{ message }}</p>
+
+  <form [formGroup]="deleteForm" (ngSubmit)="deleteAccount()">
+    <div class="form-group">
+      <label for="account">Conta:</label>
+      <select id="account" formControlName="account">
+        <option value="" disabled selected>Selecione uma conta</option>
+        <option *ngFor="let account of accounts" [value]="account.id">
+          {{ account.id }} - {{ account.name }}
+        </option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="deleteForm.invalid">Excluir Conta</button>
+  </form>
+
+  <h3 *ngIf="accounts.length > 0">Contas Analíticas - Plano de Contas</h3>
+  <ul *ngIf="accounts.length > 0">
+    <li *ngFor="let account of accounts">
+      {{ account.id }} - {{ account.name }}
+    </li>
+  </ul>
+
+  <p *ngIf="accounts.length === 0">Nenhuma conta disponível.</p>
+</div>

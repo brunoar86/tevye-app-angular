@@ -1,0 +1,26 @@
+<div class="journal-container">
+  <h2>Livro Diário</h2>
+
+  <table *ngIf="journalEntries.length > 0">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Conta Débito</th>
+        <th>Conta Crédito</th>
+        <th>Histórico</th>
+        <th>Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of journalEntries">
+        <td>{{ entry.date }}</td>
+        <td>{{ entry.debitAccount }}</td>
+        <td>{{ entry.creditAccount }}</td>
+        <td>{{ entry.history }}</td>
+        <td>{{ entry.value | currency:'BRL' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="journalEntries.length === 0">Nenhum registro encontrado no Livro Diário.</p>
+</div>
