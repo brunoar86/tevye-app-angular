@@ -1,16 +1,21 @@
 <div class="ledger-container">
   <h2>Livro Razão</h2>
 
+  <!-- 🔹 Mensagem dinâmica para feedback -->
+  <p *ngIf="message" class="message" [ngClass]="messageType">{{ message }}</p>
+
   <form [formGroup]="ledgerForm">
     <div class="form-group">
       <label for="account">Conta:</label>
-      <select id="account" formControlName="account" (change)="onSelectAccount()">
+      <select id="account" formControlName="account" (change)="selectAccount($event)">
         <option value="" disabled selected>Selecione uma conta</option>
-        <option *ngFor="let account of accounts" [value]="account.code">
-          {{ account.code }} - {{ account.name }}
+        <option *ngFor="let account of accounts" [value]="account.id">
+          {{ account.id }} - {{ account.name }}
         </option>
       </select>
     </div>
+
+    <button type="button" (click)="fetchLedgerEntries()">Atualizar Registros</button>
   </form>
 
   <h3 *ngIf="selectedAccount">Registros da Conta: {{ selectedAccount.name }}</h3>
@@ -19,21 +24,19 @@
     <thead>
       <tr>
         <th>Data</th>
-        <th>Contrapartida</th>
+        <th>Conta Débito</th>
+        <th>Conta Crédito</th>
         <th>Histórico</th>
-        <th>Débito</th>
-        <th>Crédito</th>
-        <th>Saldo</th>
+        <th>Valor</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let entry of ledgerEntries">
         <td>{{ entry.date }}</td>
-        <td>{{ entry.counterpart }}</td>
+        <td>{{ entry.debitedAccount }}</td>
+        <td>{{ entry.creditedAccount }}</td>
         <td>{{ entry.history }}</td>
-        <td>{{ entry.debit | currency:'BRL' }}</td>
-        <td>{{ entry.credit | currency:'BRL' }}</td>
-        <td>{{ entry.balance | currency:'BRL' }}</td>
+        <td>{{ entry.value | currency:'BRL' }}</td>
       </tr>
     </tbody>
   </table>

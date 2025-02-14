@@ -1,15 +1,17 @@
 <div class="transaction-container">
   <h2>Registrar Transação</h2>
-  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
 
+  <!-- 🔹 Mensagem dinâmica para feedback APENAS no envio -->
+  <p *ngIf="message" class="message" [ngClass]="messageType">{{ message }}</p>
+
+  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="debtAccount">Conta a Débito</label>
       <select id="debtAccount" formControlName="debtAccount">
         <option value="" disabled selected>Selecione</option>
-        <option value="despesa">Despesa</option>
-        <option value="divida">Pagamento de Dívida</option>
-        <option value="investimento">Investimento</option>
-        <option value="pagamento">Pagamento</option>
+        <option *ngFor="let account of accounts" [value]="account.id">
+          {{ account.id }} - {{ account.name }}
+        </option>
       </select>
     </div>
 
@@ -17,13 +19,11 @@
       <label for="creditAccount">Conta a Crédito</label>
       <select id="creditAccount" formControlName="creditAccount">
         <option value="" disabled selected>Selecione</option>
-        <option value="despesa">Despesa</option>
-        <option value="divida">Pagamento de Dívida</option>
-        <option value="investimento">Investimento</option>
-        <option value="pagamento">Pagamento</option>
+        <option *ngFor="let account of accounts" [value]="account.id">
+          {{ account.id }} - {{ account.name }}
+        </option>
       </select>
     </div>
-
 
     <div class="form-group row">
       <div class="column">
@@ -43,6 +43,7 @@
 
     <button type="submit">Registrar Transação</button>
   </form>
+
   <h3>Últimos Lançamentos</h3>
   <div class="last-transactions">
     <div class="debt-transactions" *ngIf="lastDebits.length > 0">
@@ -62,5 +63,4 @@
       </ul>
     </div>
   </div>
-
 </div>

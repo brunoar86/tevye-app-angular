@@ -1,20 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 interface Account {
-  code: string;
+  id: number;
   name: string;
-  group: string;
-  type: string; // 'D' (Débito) ou 'C' (Crédito)
 }
 
 interface LedgerEntry {
+  id: number;
   date: string;
-  counterpart: string;
+  debitedAccount: number;
+  creditedAccount: number;
   history: string;
-  debit: number;
-  credit: number;
-  balance: number;
+  value: number;
 }
 
 @Component({
@@ -22,43 +21,124 @@ interface LedgerEntry {
   templateUrl: './ledger.component.html',
   styleUrls: ['./ledger.component.css']
 })
-export class LedgerComponent {
-  ledgerForm: FormGroup;
-  accounts: Account[] = [
-    { code: '112001', name: 'Banco do Brasil', group: '112', type: 'D' },
-    { code: '112002', name: 'Itaú', group: '112', type: 'D' },
-    { code: '114001', name: 'Estoque Loja A', group: '114', type: 'D' },
-    { code: '311001', name: 'Netflix', group: '311', type: 'D' },
-    { code: '412001', name: 'Venda Produto X', group: '412', type: 'C' }
-  ]; // Exemplo de contas cadastradas
-
+export class LedgerComponent implements OnInit {
+  ledgerForm!: FormGroup;
+  accounts: Account[] = [];
   ledgerEntries: LedgerEntry[] = [];
   selectedAccount: Account | null = null;
+  selectedAccountId: number | null = null;
+  message: string | null = null;
+  messageType: 'success' | 'error' | null = null;
 
-  // Dados fictícios para exemplificar os lançamentos contábeis
-  allLedgerEntries: { [key: string]: LedgerEntry[] } = {
-    '112001': [
-      { date: '2024-01-05', counterpart: 'Itaú', history: 'Transferência recebida', debit: 2000, credit: 0, balance: 2000 },
-      { date: '2024-01-10', counterpart: 'Fornecedor X', history: 'Pagamento de fornecedor', debit: 0, credit: 500, balance: 1500 }
-    ],
-    '112002': [
-      { date: '2024-02-01', counterpart: 'Banco do Brasil', history: 'Transferência enviada', debit: 0, credit: 1000, balance: -1000 },
-      { date: '2024-02-15', counterpart: 'Salário', history: 'Depósito de salário', debit: 3000, credit: 0, balance: 2000 }
-    ],
-    '311001': [
-      { date: '2024-03-01', counterpart: 'Banco do Brasil', history: 'Pagamento Netflix', debit: 50, credit: 0, balance: -50 }
-    ]
-  };
+  private API_BASE_URL = 'http://127.0.0.1:8000';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
+
+  ngOnInit() {
     this.ledgerForm = this.fb.group({
       account: ['', Validators.required]
     });
+    this.fetchAccounts();
   }
 
-  onSelectAccount() {
-    const selectedCode = this.ledgerForm.value.account;
-    this.selectedAccount = this.accounts.find(acc => acc.code === selectedCode) || null;
-    this.ledgerEntries = this.allLedgerEntries[selectedCode] || [];
+  /**
+   * 🔹 Busca todas as contas no banco via API
+   */
+  fetchAccounts() {
+    this.http.get<{ status: number; message: string; data: Account[] }>(
+      `${this.API_BASE_URL}/get_all_accounts`
+    ).subscribe(
+      response => {
+        if (response.status === 200 && response.data) {
+          this.accounts = response.data;
+          console.log('✔ Contas carregadas:', this.accounts);
+        }
+      },
+      error => {
+        console.error('❌ Erro ao buscar contas:', error);
+      }
+    );
+  }
+
+  /**
+   * 🔹 Captura a conta selecionada e busca os registros automaticamente
+   */
+  selectAccount(event: any) {
+    const selectedId = event.target.value;
+
+    if (!selectedId) {
+      console.warn('⚠ Nenhuma conta foi selecionada.');
+      this.selectedAccount = null;
+      this.selectedAccountId = null;
+      return;
+    }
+
+    this.selectedAccount = this.accounts.find(acc => acc.id === parseInt(selectedId, 10)) || null;
+    this.selectedAccountId = this.selectedAccount ? this.selectedAccount.id : null;
+
+    console.log('✔ Conta selecionada:', this.selectedAccount);
+
+    // 🔹 Buscar registros automaticamente ao selecionar a conta
+    if (this.selectedAccountId) {
+      this.fetchLedgerEntries();
+    }
+  }
+
+  /**
+   * 🔹 Busca os registros do livro razão para a conta selecionada
+   */
+  fetchLedgerEntries() {
+    if (!this.selectedAccountId) {
+      this.showMessage('⚠ Selecione uma conta antes de buscar registros.', 'error');
+      return;
+    }
+
+    console.log(`📡 Buscando registros para a conta: ${this.selectedAccountId}`);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'code': this.selectedAccountId.toString()
+    });
+
+    this.http.get<{ status: number; message: string; data: any[] }>(
+      `${this.API_BASE_URL}/account_ledger`,
+      { headers }
+    ).subscribe(
+      response => {
+        console.log('✔ Resposta da API:', response);
+
+        if (response.status === 200 && response.data.length > 0) {
+          this.ledgerEntries = response.data.map(entry => ({
+            id: entry[0],
+            date: entry[1].split(" ")[0],
+            debitedAccount: entry[2],
+            creditedAccount: entry[3],
+            history: entry[4],
+            value: entry[5]
+          }));
+          this.showMessage('✅ Registros carregados com sucesso!', 'success');
+        } else {
+          this.ledgerEntries = [];
+          this.showMessage('⚠ Nenhum registro encontrado para esta conta.', 'error');
+        }
+      },
+      error => {
+        this.showMessage('❌ Erro ao buscar registros do livro razão.', 'error');
+        console.error('❌ Erro ao buscar razão:', error);
+      }
+    );
+  }
+
+  /**
+   * 🔹 Exibe mensagens de status
+   */
+  showMessage(message: string, type: 'success' | 'error') {
+    this.message = message;
+    this.messageType = type;
+
+    setTimeout(() => {
+      this.message = null;
+      this.messageType = null;
+    }, 5000);
   }
 }
