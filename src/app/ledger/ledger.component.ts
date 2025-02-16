@@ -89,7 +89,7 @@ export class LedgerComponent implements OnInit {
    */
   fetchLedgerEntries() {
     if (!this.selectedAccountId) {
-      this.showMessage('⚠ Selecione uma conta antes de buscar registros.', 'error');
+      this.showMessage('⚠ Select an account before searching for ledger entries.', 'error');
       return;
     }
 
@@ -116,14 +116,14 @@ export class LedgerComponent implements OnInit {
             history: entry[4],
             value: entry[5]
           }));
-          this.showMessage('✅ Registros carregados com sucesso!', 'success');
+          this.showMessage('✅ Entries loaded successfully!', 'success');
         } else {
           this.ledgerEntries = [];
-          this.showMessage('⚠ Nenhum registro encontrado para esta conta.', 'error');
+          this.showMessage('⚠ No entry found for this account.', 'error');
         }
       },
       error => {
-        this.showMessage('❌ Erro ao buscar registros do livro razão.', 'error');
+        this.showMessage('❌ Error fetching ledger entries.', 'error');
         console.error('❌ Erro ao buscar razão:', error);
       }
     );

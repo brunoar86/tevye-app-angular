@@ -1,33 +1,33 @@
 <div class="ledger-container">
-  <h2>Livro Razão</h2>
+  <h2>Ledger</h2>
 
   <!-- 🔹 Mensagem dinâmica para feedback -->
   <p *ngIf="message" class="message" [ngClass]="messageType">{{ message }}</p>
 
   <form [formGroup]="ledgerForm">
     <div class="form-group">
-      <label for="account">Conta:</label>
+      <label for="account">Account:</label>
       <select id="account" formControlName="account" (change)="selectAccount($event)">
-        <option value="" disabled selected>Selecione uma conta</option>
+        <option value="" disabled selected>Select an account</option>
         <option *ngFor="let account of accounts" [value]="account.id">
           {{ account.id }} - {{ account.name }}
         </option>
       </select>
     </div>
 
-    <button type="button" (click)="fetchLedgerEntries()">Atualizar Registros</button>
+    <button type="button" (click)="fetchLedgerEntries()">Update entries</button>
   </form>
 
-  <h3 *ngIf="selectedAccount">Registros da Conta: {{ selectedAccount.name }}</h3>
+  <h3 *ngIf="selectedAccount">Entries: {{ selectedAccount.name }}</h3>
 
   <table *ngIf="ledgerEntries.length > 0">
     <thead>
       <tr>
-        <th>Data</th>
-        <th>Conta Débito</th>
-        <th>Conta Crédito</th>
-        <th>Histórico</th>
-        <th>Valor</th>
+        <th>Date</th>
+        <th>Debit</th>
+        <th>Credit</th>
+        <th>Description</th>
+        <th>Value</th>
       </tr>
     </thead>
     <tbody>
@@ -41,5 +41,5 @@
     </tbody>
   </table>
 
-  <p *ngIf="ledgerEntries.length === 0 && selectedAccount">Nenhum registro encontrado para esta conta.</p>
+  <p *ngIf="ledgerEntries.length === 0 && selectedAccount">No entry found for {{ selectedAccount.name }}.</p>
 </div>

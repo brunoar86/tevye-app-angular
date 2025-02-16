@@ -1,5 +1,5 @@
 <div class="account-create-container">
-  <h2>Criar Nova Conta</h2>
+  <h2>Create Account</h2>
 
   <!-- 🔹 Mensagem dinâmica para feedback APENAS na criação -->
   <p *ngIf="message" class="message" [ngClass]="messageType">{{ message }}</p>
@@ -7,9 +7,9 @@
   <form [formGroup]="accountForm" (ngSubmit)="createAccount()">
 
     <div class="form-group">
-      <label for="group">Grupo:</label>
+      <label for="group">Control Account:</label>
       <select id="group" formControlName="group" (change)="onGroupChange()">
-        <option value="" disabled selected>Selecione um grupo</option>
+        <option value="" disabled selected>Select a control account</option>
         <option *ngFor="let group of groups" [value]="group.id">
           {{ group.id }} - {{ group.name }}
         </option>
@@ -17,14 +17,14 @@
     </div>
 
     <div class="form-group">
-      <label for="name">Nome da Conta:</label>
-      <input id="name" type="text" formControlName="name" placeholder="Digite o nome da conta" required/>
+      <label for="name">Subsidiary account:</label>
+      <input id="name" type="text" formControlName="name" placeholder="Type the account name" required/>
     </div>
 
-    <button type="submit" [disabled]="accountForm.invalid">Criar Conta</button>
+    <button type="submit" [disabled]="accountForm.invalid">Create account</button>
   </form>
 
-  <h3 *ngIf="selectedGroupId && accounts.length > 0">Contas Analíticas no Grupo {{ selectedGroupId }}</h3>
+  <h3 *ngIf="selectedGroupId && accounts.length > 0">Subsidiary accounts under control account {{ selectedGroupId }}</h3>
 
   <div class="accounts-list" *ngIf="selectedGroupId && accounts.length > 0">
     <ul>
@@ -34,5 +34,5 @@
     </ul>
   </div>
 
-  <p *ngIf="selectedGroupId && accounts.length === 0">Nenhuma conta cadastrada para este grupo.</p>
+  <p *ngIf="selectedGroupId && accounts.length === 0">No accounts registered under this control account.</p>
 </div>

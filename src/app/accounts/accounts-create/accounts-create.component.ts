@@ -51,7 +51,7 @@ export class AccountsCreateComponent implements OnInit {
         }
       },
       error => {
-        console.error('Erro ao buscar grupos de contas:', error);
+        console.error('Error fetching control accounts:', error);
       }
     );
   }
@@ -82,7 +82,7 @@ export class AccountsCreateComponent implements OnInit {
         }
       },
       error => {
-        console.error('Erro ao buscar contas do grupo:', error);
+        console.error('Error fetching accounts:', error);
       }
     );
   }
@@ -108,14 +108,14 @@ export class AccountsCreateComponent implements OnInit {
         ).subscribe(
           response => {
             if (response.status === 200) {
-              this.showMessage('Conta criada com sucesso!', 'success');
+              this.showMessage('Account created!', 'success');
               this.fetchAccountsByGroup(groupId); // Atualiza a lista de contas após a criação
               this.accountForm.reset();
               this.selectedGroupId = null;
             }
           },
           error => {
-            this.showMessage('Erro ao criar conta.', 'error');
+            this.showMessage('Error creating account.', 'error');
             console.error('Erro ao criar conta:', error);
           }
         );

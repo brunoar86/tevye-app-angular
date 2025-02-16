@@ -18,7 +18,6 @@
         <td>{{ balanceSheet.equity | currency:'BRL' }}</td>
       </tr>
     </table>
-
     <canvas id="balanceChart"></canvas>
   </div>
 
@@ -28,43 +27,17 @@
     <table>
       <tr>
         <td>Receitas:</td>
-        <td>{{ incomeStatement.revenue | currency:'BRL' }}</td>
+        <td>{{ incomeStatement.income | currency:'BRL' }}</td>
       </tr>
       <tr>
         <td>Despesas:</td>
-        <td>{{ incomeStatement.expenses | currency:'BRL' }}</td>
+        <td>{{ incomeStatement.expense | currency:'BRL' }}</td>
       </tr>
       <tr class="highlight">
         <td>Lucro/Prejuízo:</td>
-        <td>{{ incomeStatement.netIncome | currency:'BRL' }}</td>
+        <td>{{ incomeStatement.result | currency:'BRL' }}</td>
       </tr>
     </table>
-
     <canvas id="incomeChart"></canvas>
-  </div>
-
-  <!-- Fluxo de Caixa -->
-  <div class="card">
-    <h3>Demonstração do Fluxo de Caixa (DFC)</h3>
-    <table>
-      <tr>
-        <td>Atividades Operacionais:</td>
-        <td>{{ cashFlow.operating | currency:'BRL' }}</td>
-      </tr>
-      <tr>
-        <td>Atividades de Investimento:</td>
-        <td>{{ cashFlow.investing | currency:'BRL' }}</td>
-      </tr>
-      <tr>
-        <td>Atividades de Financiamento:</td>
-        <td>{{ cashFlow.financing | currency:'BRL' }}</td>
-      </tr>
-      <tr class="highlight">
-        <td>Fluxo de Caixa Líquido:</td>
-        <td>{{ cashFlow.netCashFlow | currency:'BRL' }}</td>
-      </tr>
-    </table>
-
-    <canvas id="cashFlowChart"></canvas>
   </div>
 </div>
