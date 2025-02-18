@@ -53,9 +53,9 @@ export class DashboardComponent implements OnInit {
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Ativos', 'Passivos', 'Patrimônio Líquido'],
+        labels: ['Assets', 'Liabilities', 'Equity'],
         datasets: [{
-          label: 'Balanço Patrimonial',
+          label: 'Balance Sheet',
           data: [
             this.balanceSheet.assets,
             this.balanceSheet.liabilities,
@@ -72,9 +72,9 @@ export class DashboardComponent implements OnInit {
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Receita', 'Despesa', 'Lucro/Prejuízo'],
+        labels: ['Income', 'Expenses', 'Result'],
         datasets: [{
-          label: 'DRE',
+          label: 'Income Statement',
           data: [
             this.incomeStatement.income,
             this.incomeStatement.expense,

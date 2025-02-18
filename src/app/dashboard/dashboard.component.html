@@ -1,20 +1,20 @@
 <div class="dashboard-container">
-  <h2>Dashboard Financeiro</h2>
+  <h2>Dashboard</h2>
 
   <!-- Balanço Patrimonial -->
   <div class="card">
-    <h3>Balanço Patrimonial</h3>
+    <h3>Balance Sheet</h3>
     <table>
       <tr>
-        <td>Ativos:</td>
+        <td>Assets:</td>
         <td>{{ balanceSheet.assets | currency:'BRL' }}</td>
       </tr>
       <tr>
-        <td>Passivos:</td>
+        <td>Liabilites:</td>
         <td>{{ balanceSheet.liabilities | currency:'BRL' }}</td>
       </tr>
       <tr class="highlight">
-        <td>Patrimônio Líquido:</td>
+        <td>Equity:</td>
         <td>{{ balanceSheet.equity | currency:'BRL' }}</td>
       </tr>
     </table>
@@ -23,18 +23,18 @@
 
   <!-- DRE -->
   <div class="card">
-    <h3>Demonstração do Resultado (DRE)</h3>
+    <h3>Income Statement</h3>
     <table>
       <tr>
-        <td>Receitas:</td>
+        <td>Income:</td>
         <td>{{ incomeStatement.income | currency:'BRL' }}</td>
       </tr>
       <tr>
-        <td>Despesas:</td>
+        <td>Expenses:</td>
         <td>{{ incomeStatement.expense | currency:'BRL' }}</td>
       </tr>
       <tr class="highlight">
-        <td>Lucro/Prejuízo:</td>
+        <td>Result:</td>
         <td>{{ incomeStatement.result | currency:'BRL' }}</td>
       </tr>
     </table>
