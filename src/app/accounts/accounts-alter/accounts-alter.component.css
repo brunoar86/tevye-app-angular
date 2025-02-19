@@ -13,20 +13,25 @@ label {
 }
 
 select, input {
+  background-color: #FFCC29;
+  color: #002776;
+  font-weight: bold;
+  opacity: 0.85;
   width: 100%;
   padding: 8px;
   margin-top: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #002776;
   border-radius: 5px;
 }
 
 button {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #009739;
+  background-color: #002776;
   color: white;
   transition: background-color 0.3s ease;
 }
@@ -38,6 +43,7 @@ button:disabled {
 
 button:hover {
   background-color: #FFCC29;
+  color: #002776;
 }
 
 ul {

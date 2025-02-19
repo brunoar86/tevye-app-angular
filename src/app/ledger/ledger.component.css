@@ -20,6 +20,22 @@ select {
   border-radius: 5px;
 }
 
+button {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #002776;
+  color: #FFFFFF;
+}
+
+button:hover {
+  background-color: #FFCC29;
+  color: #002776;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;

@@ -13,6 +13,10 @@ label {
 }
 
 select, input {
+  background-color: #FFCC29;
+  color:#002776;
+  font-weight: bold;
+  opacity: 0.85;
   width: 100%;
   padding: 8px;
   margin-top: 5px;
@@ -28,7 +32,7 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #009739;
+  background-color: #002776;
   color: white;
   transition: background-color 0.3s ease;
 }
@@ -40,6 +44,7 @@ button:disabled {
 
 button:hover {
   background-color: #FFCC29;
+  color: #002776;
 }
 
 .accounts-list {

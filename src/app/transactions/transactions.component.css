@@ -14,23 +14,29 @@ label {
 }
 
 input, select {
+  background-color: #FFCC29;
+  color: #002776;
+  opacity: 0.85;
   width: 100%;
   padding: 0.5rem;
   box-sizing: border-box;
+  border-radius: 5px;
 }
 
 button {
-  padding: 0.5rem 1rem;
+  padding: 0.8rem 2rem;
   background-color: #002776;
+  font-size: 1rem;
   color: #FFFFFF;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
   transition: background-color 0.3s;
 }
 
 button:hover {
   background-color: #FFCC29;
-  color: #212121;
+  color: #002776;
 }
 
 .last-transactions {

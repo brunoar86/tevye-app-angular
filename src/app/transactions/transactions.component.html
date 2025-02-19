@@ -1,14 +1,14 @@
 <div class="transaction-container">
-  <h2>Registrar Transação</h2>
+  <h2>Post entry</h2>
 
   <!-- 🔹 Mensagem dinâmica para feedback APENAS no envio -->
   <p *ngIf="message" class="message" [ngClass]="messageType">{{ message }}</p>
 
   <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="debtAccount">Conta a Débito</label>
+      <label for="debtAccount">Debit Account</label>
       <select id="debtAccount" formControlName="debtAccount">
-        <option value="" disabled selected>Selecione</option>
+        <option value="" disabled selected>Select</option>
         <option *ngFor="let account of accounts" [value]="account.id">
           {{ account.id }} - {{ account.name }}
         </option>
@@ -16,9 +16,9 @@
     </div>
 
     <div class="form-group">
-      <label for="creditAccount">Conta a Crédito</label>
+      <label for="creditAccount">Credit Account</label>
       <select id="creditAccount" formControlName="creditAccount">
-        <option value="" disabled selected>Selecione</option>
+        <option value="" disabled selected>Select</option>
         <option *ngFor="let account of accounts" [value]="account.id">
           {{ account.id }} - {{ account.name }}
         </option>
@@ -27,27 +27,27 @@
 
     <div class="form-group row">
       <div class="column">
-        <label for="transactionDate">Data:</label>
+        <label for="transactionDate">Date:</label>
         <input id="transactionDate" type="date" formControlName="transactionDate" required/>
       </div>
       <div class="column">
-        <label for="value">Valor:</label>
+        <label for="value">Value:</label>
         <input id="value" type="text" formControlName="value" placeholder="0,00" required/>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="description">Histórico:</label>
+      <label for="description">Description:</label>
       <input id="description" type="text" formControlName="description" placeholder="Descrição da transação" required/>
     </div>
 
-    <button type="submit">Registrar Transação</button>
+    <button class="button" type="submit">Post entry</button>
   </form>
 
-  <h3>Últimos Lançamentos</h3>
+  <h3>Last entries</h3>
   <div class="last-transactions">
     <div class="debt-transactions" *ngIf="lastDebits.length > 0">
-      <h4>Conta a Débito</h4>
+      <h4>Debit Account</h4>
       <ul>
         <li *ngFor="let transaction of lastDebits">
           {{ transaction.description }} - R$ {{ transaction.value }}
@@ -55,7 +55,7 @@
       </ul>
     </div>
     <div class="credit-transactions" *ngIf="lastCredits.length > 0">
-      <h4>Conta a Crédito</h4>
+      <h4>Credit Account</h4>
       <ul>
         <li *ngFor="let transaction of lastCredits">
           {{ transaction.description }} - R$ {{ transaction.value }}

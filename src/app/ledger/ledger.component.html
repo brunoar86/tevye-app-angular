@@ -18,7 +18,7 @@
     <button type="button" (click)="fetchLedgerEntries()">Update entries</button>
   </form>
 
-  <h3 *ngIf="selectedAccount">Entries: {{ selectedAccount.name }}</h3>
+  <h3 *ngIf="selectedAccount">{{ selectedAccount.name }}</h3>
 
   <table *ngIf="ledgerEntries.length > 0">
     <thead>

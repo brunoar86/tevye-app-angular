@@ -4,21 +4,22 @@
   left: 0;
   height: 100vh;
   width: 27vh;
-  background-color: #009739;
-  color: #FFFFFF;
+  background-color: #FFCC29;
+  color: #002776;
   padding: 1rem;
   box-sizing: border-box;
   overflow-y: auto;
   font-size: 1.4rem;
   font-weight: bold;
   font-family: Lato, sans-serif;
-  text-align: left;
+  text-align: center;
 }
 
 .menu ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-top: 5vh;
 }
 
 .menu li {
@@ -33,5 +34,5 @@
 }
 
 .menu a:hover {
-  color: #FFCC29;
+  color: #FFFFFF;
 }
