@@ -13,6 +13,9 @@ label {
 }
 
 select {
+  background-color: #FFCC29;
+  color: #002776;
+  opacity: 0.85;
   width: 100%;
   padding: 8px;
   margin-top: 5px;

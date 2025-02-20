@@ -22,6 +22,8 @@ interface IncomeStatement {
 export class DashboardComponent implements OnInit {
   balanceSheet: BalanceSheet = { assets: 0, liabilities: 0, equity: 0 };
   incomeStatement: IncomeStatement = { income: 0, expense: 0, result: 0 };
+  private balanceChart!: Chart;
+  private incomeChart!: Chart;
 
   constructor(private http: HttpClient) {}
 
@@ -34,7 +36,7 @@ export class DashboardComponent implements OnInit {
     this.http.get<any>('http://127.0.0.1:8000/balance_sheet').subscribe(response => {
       if (response.status === 200) {
         this.balanceSheet = response.data;
-        this.updateBalanceChart();
+        setTimeout(() => this.updateBalanceChart(), 0); // 🔹 Garante que o gráfico renderize após atualização do DOM
       }
     });
   }
@@ -43,14 +45,16 @@ export class DashboardComponent implements OnInit {
     this.http.get<any>('http://127.0.0.1:8000/income_statement').subscribe(response => {
       if (response.status === 200) {
         this.incomeStatement = response.data;
-        this.updateIncomeChart();
+        setTimeout(() => this.updateIncomeChart(), 0);
       }
     });
   }
 
   updateBalanceChart(): void {
     const ctx = document.getElementById('balanceChart') as HTMLCanvasElement;
-    new Chart(ctx, {
+    if (this.balanceChart) this.balanceChart.destroy(); // 🔹 Evita sobreposição de gráficos
+
+    this.balanceChart = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: ['Assets', 'Liabilities', 'Equity'],
@@ -63,13 +67,19 @@ export class DashboardComponent implements OnInit {
           ],
           backgroundColor: ['#4CAF50', '#FF5733', '#FFC107']
         }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
       }
     });
   }
 
   updateIncomeChart(): void {
     const ctx = document.getElementById('incomeChart') as HTMLCanvasElement;
-    new Chart(ctx, {
+    if (this.incomeChart) this.incomeChart.destroy();
+
+    this.incomeChart = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: ['Income', 'Expenses', 'Result'],
@@ -82,6 +92,10 @@ export class DashboardComponent implements OnInit {
           ],
           backgroundColor: ['#4CAF50', '#FF5733', '#FFC107']
         }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
       }
     });
   }

@@ -1,7 +1,6 @@
 <div class="ledger-container">
   <h2>Ledger</h2>
 
-  <!-- 🔹 Mensagem dinâmica para feedback -->
   <p *ngIf="message" class="message" [ngClass]="messageType">{{ message }}</p>
 
   <form [formGroup]="ledgerForm">
@@ -42,4 +41,7 @@
   </table>
 
   <p *ngIf="ledgerEntries.length === 0 && selectedAccount">No entry found for {{ selectedAccount.name }}.</p>
+
+  <!-- 🔹 Exibição do saldo -->
+  <h3 *ngIf="accountBalance !== null">Balance: {{ accountBalance | currency:'BRL' }}</h3>
 </div>

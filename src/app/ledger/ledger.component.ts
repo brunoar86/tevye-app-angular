@@ -29,6 +29,7 @@ export class LedgerComponent implements OnInit {
   selectedAccountId: number | null = null;
   message: string | null = null;
   messageType: 'success' | 'error' | null = null;
+  accountBalance: number | null = null; // 🔹 Adicionando saldo da conta
 
   private API_BASE_URL = 'http://127.0.0.1:8000';
 
@@ -41,9 +42,6 @@ export class LedgerComponent implements OnInit {
     this.fetchAccounts();
   }
 
-  /**
-   * 🔹 Busca todas as contas no banco via API
-   */
   fetchAccounts() {
     this.http.get<{ status: number; message: string; data: Account[] }>(
       `${this.API_BASE_URL}/get_all_accounts`
@@ -60,9 +58,6 @@ export class LedgerComponent implements OnInit {
     );
   }
 
-  /**
-   * 🔹 Captura a conta selecionada e busca os registros automaticamente
-   */
   selectAccount(event: any) {
     const selectedId = event.target.value;
 
@@ -70,6 +65,7 @@ export class LedgerComponent implements OnInit {
       console.warn('⚠ Nenhuma conta foi selecionada.');
       this.selectedAccount = null;
       this.selectedAccountId = null;
+      this.accountBalance = null;
       return;
     }
 
@@ -78,15 +74,12 @@ export class LedgerComponent implements OnInit {
 
     console.log('✔ Conta selecionada:', this.selectedAccount);
 
-    // 🔹 Buscar registros automaticamente ao selecionar a conta
     if (this.selectedAccountId) {
       this.fetchLedgerEntries();
+      this.fetchAccountBalance(); // 🔹 Buscar saldo ao selecionar conta
     }
   }
 
-  /**
-   * 🔹 Busca os registros do livro razão para a conta selecionada
-   */
   fetchLedgerEntries() {
     if (!this.selectedAccountId) {
       this.showMessage('⚠ Select an account before searching for ledger entries.', 'error');
@@ -130,8 +123,41 @@ export class LedgerComponent implements OnInit {
   }
 
   /**
-   * 🔹 Exibe mensagens de status
+   * 🔹 Busca o saldo da conta selecionada
    */
+  fetchAccountBalance() {
+    if (!this.selectedAccountId) {
+      this.accountBalance = null;
+      return;
+    }
+
+    console.log(`📡 Buscando saldo para a conta: ${this.selectedAccountId}`);
+
+    const headers = new HttpHeaders({
+      'accept': 'application/json',
+      'code': this.selectedAccountId.toString()
+    });
+
+    this.http.get<{ status: number; message: string; data: number }>(
+      `${this.API_BASE_URL}/account_balance`,
+      { headers }
+    ).subscribe(
+      response => {
+        if (response.status === 200) {
+          this.accountBalance = response.data;
+          console.log('✔ Saldo carregado:', this.accountBalance);
+        } else {
+          this.accountBalance = null;
+          console.warn('⚠ Não foi possível obter o saldo.');
+        }
+      },
+      error => {
+        this.accountBalance = null;
+        console.error('❌ Erro ao buscar saldo:', error);
+      }
+    );
+  }
+
   showMessage(message: string, type: 'success' | 'error') {
     this.message = message;
     this.messageType = type;
